@@ -1,0 +1,713 @@
+
+#: import SlideTransition kivy.uix.screenmanager.SlideTransition
+#: import utils kivy.utils
+
+<WindowManager>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    transition: SlideTransition()
+    MainScreen:
+        name: 'main'
+        id: 'main_screen'
+    ResultScreen:
+        name: 'result'
+        id: 'result_screen'
+    ThirdScreen:
+        name: 'third'
+        id: 'third_screen'
+    InfoScreen:    
+        name: 'info'
+        id: 'info_screen'
+
+<SpinnerOption>:
+    background_normal: 'Button2.jpg'
+
+<MainScreen>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "background.jpg"
+    GridLayout:
+        cols:2
+        pos_hint: {"top": 0.85, "right": 1.25}
+        Spinner:
+            id: main_drop
+            size_hint: None, None
+            size: 275, 150
+            pos_hint:{'top': 1}
+            text: '도시 선택'
+            background_normal: 'Button2.jpg'
+            font_name: './HMKMRHD.ttf'
+            option_cls: 'MySpinnerOption'
+            values: root.values_dict.keys()
+            on_text:
+                root.values_update(self.text)
+
+        Spinner:
+            id: sub_drop
+            size_hint: None, None
+            size: 275, 150
+            pos_hint:{'top': 1}
+            text: '시/군/구 선택'
+            background_normal: 'Button2.jpg'
+            font_name: './HMKMRHD.ttf'
+            option_cls: 'MySpinnerOption'
+            values: root.sub_values
+
+            
+    FloatLayout:
+        Button:
+            size_hint: (0.3, 0.1)
+            pos_hint: {'center_x': 0.8, 'center_y': 0.1}
+            text: "제출"
+            font_name: './HMKMRHD.ttf'
+            background_normal: 'Button2.jpg'
+            on_press:
+                root.convert2r()
+                root.manager.transition.direction = 'left'
+                root.manager.get_screen('result').ids.CityState.text = root.ids.main_drop.text + '-' + root.ids.sub_drop.text
+                
+                
+
+            
+        Button:
+            size_hint: (0.3, 0.1)
+            pos_hint: {'center_x': 0.2, 'center_y': 0.1}
+            text: "종료"
+            font_name: './HMKMRHD.ttf'
+            background_normal: 'Button2.jpg'
+            on_press: root.onExit()
+    
+
+<ResultScreen>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "background.jpg"
+
+    
+    GridLayout:
+        cols: 4
+        size_hint: 1, 0.2
+        pos_hint: {"top": 0.9, "right": 1}
+        canvas.before:
+            Color:
+                rgba: 0.2, 0.2, 0.2, 0.8
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            id:key1
+            text: '키워드1'
+            font_name: './HMKMRHD.ttf'
+            text_size: self.size
+            valign: 'middle'
+
+        CheckBox:
+            id : chk_key1
+
+        Label:
+            id:key2
+            text: '키워드2'
+            font_name: './HMKMRHD.ttf'
+            text_size: self.size
+            valign: 'middle'
+
+        CheckBox:
+            id: chk_key2      
+        
+        Label:
+            id:key3
+            text: '키워드3'
+            font_name: './HMKMRHD.ttf'
+            text_size: self.size
+            valign: 'middle'
+
+        CheckBox:
+            id: chk_key3
+
+        Label:
+            id:key4
+            text: '키워드4'
+            font_name: './HMKMRHD.ttf'
+            text_size: self.size
+            valign: 'middle'
+
+        CheckBox:
+            id: chk_key4   
+        
+        Label:
+            id:key5
+            text: '키워드5'
+            font_name: './HMKMRHD.ttf'
+            text_size: self.size
+            valign: 'middle'
+
+        CheckBox:
+            id: chk_key5  
+        
+        Label:
+            id:key6
+            text: '키워드6'
+            font_name: './HMKMRHD.ttf'
+            text_size: self.size
+            valign: 'middle'
+
+        CheckBox:
+            id: chk_key6  
+        
+        Label:
+            id:key7
+            text: '키워드7'
+            font_name: './HMKMRHD.ttf'
+            text_size: self.size
+            valign: 'middle'
+
+        CheckBox:
+            id: chk_key7  
+        
+        Label:
+            id:key8
+            text: '키워드8'
+            font_name: './HMKMRHD.ttf'
+            text_size: self.size
+            valign: 'middle'
+
+        CheckBox:
+            id: chk_key8  
+        
+        Label:
+            id:key9
+            text: '키워드9'
+            font_name: './HMKMRHD.ttf'
+            text_size: self.size
+            valign: 'middle'
+
+        CheckBox:
+            id: chk_key9
+
+        Label:
+            id:key10
+            text: '키워드10'
+            font_name: './HMKMRHD.ttf'
+            text_size: self.size
+            valign: 'middle'
+
+        CheckBox:
+            id: chk_key10      
+
+
+
+    GridLayout:
+        canvas.before:
+            Color:
+                rgba: 0.2, 0.2, 0.2, 0.8
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        id: recom
+        rows: 5
+        size_hint: 1, 0.55
+        background_normal: 'Button2.jpg'
+        pos_hint: {"top": 0.7, "right": 1}
+        disabled: True
+        Button:
+            id: recom1
+            text: ""
+            font_name: './HMKMRHD.ttf'
+            on_press: 
+                root.convert2t(self.text)
+                root.manager.transition.direction = 'left'
+            
+        Button:
+            id: recom2
+            text: ""
+            font_name: './HMKMRHD.ttf'
+            on_press: 
+                root.convert2t(self.text)    
+                root.manager.transition.direction = 'left'
+        
+        Button:
+            id: recom3
+            text: ""
+            font_name: './HMKMRHD.ttf'
+            on_press: 
+                root.convert2t(self.text) 
+                root.manager.transition.direction = 'left'
+        
+        Button:
+            id: recom4
+            text: ""
+            font_name: './HMKMRHD.ttf'
+            on_press: 
+                root.convert2t(self.text) 
+                root.manager.transition.direction = 'left'
+
+        Button:
+            id: recom5
+            text: ""
+            font_name: './HMKMRHD.ttf'
+            on_press: 
+                root.convert2t(self.text) 
+                root.manager.transition.direction = 'left'
+
+    FloatLayout:
+        Button:
+            size_hint: (0.3, 0.1)
+            pos_hint: {'center_x': 0.2, 'center_y': 0.1}
+            text: "메인화면으로"
+            font_name: './HMKMRHD.ttf'
+            background_color: 0.2, 0.2, 0.5, 0.8  
+            background_normal: 'Button2.jpg' 
+            on_press: 
+                root.convert2m()
+                root.manager.transition.direction = 'right'
+
+        Button:
+            size_hint: (0.3, 0.1)
+            pos_hint: {'center_x': 0.8, 'center_y': 0.1}
+            text: "추천지역 보기"
+            font_name: './HMKMRHD.ttf'
+            background_color: 0.2, 0.2, 0.5, 0.8
+            background_normal: 'Button2.jpg'   
+            on_press: 
+                root.get_keyval()
+
+
+        
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.5, 0.8     
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: CityState
+            text: ''
+            font_name: './HMKMRHD.ttf'
+            size_hint: 1, 0.1
+            pos_hint: {'top':1, 'right': 1}
+
+    #    Spinner:
+    #       id: resource
+    #        size_hint: None, None
+    #        size: 200, 50
+    #        pos_hint:{'top': 0.95, 'right': 0.6}
+    #        text: 'Select Resource'
+    #        values: root.resource_value
+
+
+
+<ThirdScreen>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "background.jpg"  
+
+
+# 
+# ThirdScreen
+# GridLayout
+    
+    #주요 관광지 리스트 
+    GridLayout:
+        id: tourrec
+        rows: 5
+        size_hint: 0.75, 0.3
+        pos_hint: {"top": 0.85, "right": 0.75}
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 0.8
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: tourrec1
+            text: ""
+            font_name: './HMKMRHD.ttf'    
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 0.8
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: tourrec2
+            text: ""
+            font_name: './HMKMRHD.ttf'   
+
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 0.8
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: tourrec3
+            text: ""
+            font_name: './HMKMRHD.ttf'
+
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 0.8
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: tourrec4
+            text: ""
+            font_name: './HMKMRHD.ttf' 
+
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 0.8
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: tourrec5
+            text: ""
+            font_name: './HMKMRHD.ttf'
+
+
+    #주요 축제 리스트
+    GridLayout:
+        id: fesrec1
+        rows: 5
+        size_hint: 0.75, 0.3
+        pos_hint: {"top": 0.5, "right": 0.75}
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 0.8
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: fesrec1
+            text: ""
+            font_name: './HMKMRHD.ttf'    
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 0.8
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: fesrec2
+            text: ""
+            font_name: './HMKMRHD.ttf'   
+
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 0.8
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: fesrec3
+            text: ""
+            font_name: './HMKMRHD.ttf'
+
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 0.8
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: fesrec4
+            text: ""
+            font_name: './HMKMRHD.ttf' 
+
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 0.8
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: fesrec5
+            text: ""
+            font_name: './HMKMRHD.ttf' 
+
+#
+#
+#
+# 
+# ThirdScreen
+# FloatLayout
+    FloatLayout:
+
+        Label:
+            id: reg_temp
+            text: ""
+            font_name: './HMKMRHD.ttf'
+            opacity: 0
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.5, 0.8
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: CityState2
+            text: ""
+            font_name: './HMKMRHD.ttf'
+            size_hint: 1, 0.1
+            pos_hint: {'top':1, 'right': 1}
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.3, 0.6
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            text: "주요 관광지"
+            font_name: './HMKMRHD.ttf'
+            size_hint: 1, 0.05
+            pos_hint: {'top':0.9, 'right': 1}
+
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.3, 0.6
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            text: "주요 축제"
+            font_name: './HMKMRHD.ttf'
+            size_hint: 1, 0.05
+            pos_hint: {'top':0.55, 'right': 1}
+        
+        #주요관광 버튼
+        #
+        #
+        #
+        #convert2i 에 관광지 이름과 선택한 지역/축제 텍스트 입력 필요
+        Button:
+            background_color: (0.2, 0.5, 0.8, 0.8)
+            id: tourrecom1
+            size_hint: (0.2, 0.06)
+            pos_hint: {"top": 0.85, "right": 0.95}
+            text: "이동"
+            font_name: './HMKMRHD.ttf'
+            disabled: True
+            on_press:
+                root.convert2il(root.ids.reg_temp.text, root.ids.tourrec1.text)
+                root.manager.transition.direction = 'left'
+
+        Button:
+            background_color: (0.2, 0.5, 0.8, 0.8)
+            id: tourrecom2
+            size_hint: (0.2, 0.06)
+            pos_hint: {"top": 0.79, "right": 0.95}
+            text: "이동"
+            font_name: './HMKMRHD.ttf'
+            disabled: True
+            on_press:
+                root.convert2il(root.ids.reg_temp.text, root.ids.tourrec2.text)
+                root.manager.transition.direction = 'left'
+
+        Button:
+            background_color: (0.2, 0.5, 0.8, 0.8)
+            id: tourrecom3
+            size_hint: (0.2, 0.06)
+            pos_hint: {"top": 0.73, "right": 0.95}
+            text: "이동"
+            font_name: './HMKMRHD.ttf'
+            disabled: True
+            on_press:
+                root.convert2il(root.ids.reg_temp.text, root.ids.tourrec3.text)
+                root.manager.transition.direction = 'left'
+
+        Button:
+            background_color: (0.2, 0.5, 0.8, 0.8)
+            id: tourrecom4
+            size_hint: (0.2, 0.06)
+            pos_hint: {"top": 0.67, "right": 0.95}
+            text: "이동"
+            font_name: './HMKMRHD.ttf'
+            disabled: True
+            on_press:
+                root.convert2il(root.ids.reg_temp.text, root.ids.tourrec4.text)
+                root.manager.transition.direction = 'left'
+        
+        Button:
+            background_color: (0.2, 0.5, 0.8, 0.8)
+            id: tourrecom5
+            size_hint: (0.2, 0.06)
+            pos_hint: {"top": 0.61, "right": 0.95}
+            text: "이동"
+            font_name: './HMKMRHD.ttf'
+            disabled: True
+            on_press:
+                root.convert2il(root.ids.reg_temp.text, root.ids.tourrec5.text)
+                root.manager.transition.direction = 'left'
+        #주요 축제 버튼 리스트
+        Button:
+            background_color: (0.2, 0.5, 0.8, 0.8)
+            id: fesrecom1
+            size_hint: (0.2, 0.06)
+            pos_hint: {"top": 0.5, "right": 0.95}
+            text: "이동"
+            font_name: './HMKMRHD.ttf'
+            disabled: True
+            on_press:
+                root.convert2if(root.ids.reg_temp.text, root.ids.fesrec1.text)
+                root.manager.transition.direction = 'left'
+
+        Button:
+            background_color: (0.2, 0.5, 0.8, 0.8)
+            id: fesrecom2
+            size_hint: (0.2, 0.06)
+            pos_hint: {"top": 0.44, "right": 0.95}
+            text: "이동"
+            font_name: './HMKMRHD.ttf'
+            disabled: True
+            on_press:
+                root.convert2if(root.ids.reg_temp.text, root.ids.fesrec2.text)
+                root.manager.transition.direction = 'left'
+
+        Button:
+            background_color: (0.2, 0.5, 0.8, 0.8)
+            id: fesrecom3
+            size_hint: (0.2, 0.06)
+            pos_hint: {"top": 0.38, "right": 0.95}
+            text: "이동"
+            font_name: './HMKMRHD.ttf'
+            disabled: True
+            on_press:
+                root.convert2if(root.ids.reg_temp.text, root.ids.fesrec3.text)
+                root.manager.transition.direction = 'left'
+
+        Button:
+            background_color: (0.2, 0.5, 0.8, 0.8)
+            id: fesrecom4
+            size_hint: (0.2, 0.06)
+            pos_hint: {"top": 0.32, "right": 0.95}
+            text: "이동"
+            font_name: './HMKMRHD.ttf'
+            disabled: True
+            on_press:
+                root.convert2if(root.ids.reg_temp.text, root.ids.fesrec4.text)
+                root.manager.transition.direction = 'left'
+        
+        Button:
+            background_color: (0.2, 0.5, 0.8, 0.8)
+            id: fesrecom5
+            size_hint: (0.2, 0.06)
+            pos_hint: {"top": 0.26, "right": 0.95}
+            text: "이동"
+            font_name: './HMKMRHD.ttf'
+            disabled: True
+            on_press:
+                root.convert2if(root.ids.reg_temp.text, root.ids.fesrec5.text)
+                root.manager.transition.direction = 'left'           
+
+        #하단 스크린 이동 버튼
+        Button:
+            background_color: (0.2, 0.5, 0.8, 0.8)
+            text:'메인화면으로'
+            font_name: './HMKMRHD.ttf'
+            size_hint:(0.5, 0.1)
+            pos_hint: {'center_x': 0.25, 'center_y': 0.1}
+            background_normal: 'Button2.jpg'
+            on_press: 
+                root.convert2m()
+                root.manager.transition.direction = 'right' 
+        Button:
+            background_color: (0.2, 0.5, 0.8, 0.6)
+            text:'이전화면으로'
+            font_name: './HMKMRHD.ttf'
+            size_hint:(0.5, 0.1)
+            pos_hint: {'center_x': 0.75, 'center_y': 0.1}
+            background_normal: 'Button2.jpg'
+            on_press:
+                root.convert2r()
+                root.ids.tourrec1.text=''
+                root.ids.tourrec2.text=''
+                root.ids.tourrec3.text=''
+                root.ids.tourrec4.text=''
+                root.ids.tourrec5.text=''
+                root.ids.fesrec1.text=''
+                root.ids.fesrec2.text=''
+                root.ids.fesrec3.text=''
+                root.ids.fesrec4.text=''
+                root.ids.fesrec5.text=''
+                root.ids.tourrecom1.disabled = True
+                root.ids.tourrecom2.disabled = True
+                root.ids.tourrecom3.disabled = True
+                root.ids.tourrecom4.disabled = True
+                root.ids.tourrecom5.disabled = True
+                root.ids.fesrecom1.disabled = True
+                root.ids.fesrecom2.disabled = True
+                root.ids.fesrecom3.disabled = True
+                root.ids.fesrecom4.disabled = True
+                root.ids.fesrecom5.disabled = True
+                root.manager.transition.direction = 'right'
+
+
+<InfoScreen>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "background.jpg"  
+
+    FloatLayout:
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.5, 0.8
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: choose
+            text: 'test'
+            font_name: './HMKMRHD.ttf'
+            size_hint: 1, 0.1
+            pos_hint: {'top':1, 'right': 1}
+
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.5, 0.6    
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: location
+            text: '주소 정보를 가져오지 못했어요'
+            font_name: './HMKMRHD.ttf'
+            size_hint: 1, 0.1
+            pos_hint: {'top':0.8, 'right': 1}
+
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 0.2, 0.2, 0.2, 0.8     
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: info
+            text: '해당 지역/축제에 관한 정보를 가져오지 못했어요'
+            font_name: './HMKMRHD.ttf'
+            size_hint: 1, 0.5
+            pos_hint: {'top':0.7, 'right': 1}
+
+        Button:
+            size_hint: (0.3, 0.1)
+            pos_hint: {'center_x': 0.8, 'center_y': 0.1}
+            text: "이전화면으로"
+            font_name: './HMKMRHD.ttf'
+            background_normal: 'Button2.jpg'
+            on_press: 
+                root.convert2t()
+                root.manager.transition.direction = 'right'  
